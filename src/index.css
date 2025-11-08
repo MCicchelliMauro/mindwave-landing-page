@@ -1,7 +1,49 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-body {
-  @apply bg-mindwave-navy text-white; /* Fondo base para toda la app */
+/* ✅ AQUÍ DEFINIMOS TU TEMA PERSONALIZADO (Colores, Fuentes, Animaciones) */
+@theme {
+  --color-mindwave-navy: #0F172A;
+  --color-mindwave-cyan: #22D3EE;
+  --color-mindwave-lime: #A3E635;
+
+  --font-sans: 'Inter', sans-serif;
+
+  --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
+
+/* ✅ ESTILOS BASE Y UTILIDADES PERSONALIZADAS */
+
+/* Al usar @theme arriba, las clases como 'bg-mindwave-navy' ya existen automáticamente */
+body {
+  @apply bg-mindwave-navy text-white overflow-x-hidden;
+}
+
+/* Patrón de fondo tecnológico global */
+.bg-tech-grid {
+  background-image:
+    radial-gradient(circle at center, rgba(34, 211, 238, 0.1) 1.5px, transparent 1.5px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px, 80px 80px, 80px 80px;
+  background-position: 0 0, 40px 40px, 40px 40px;
+  background-attachment: fixed;
+}
+
+/* Utilidades para delay */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-700 { animation-delay: 700ms; }

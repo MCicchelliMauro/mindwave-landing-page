@@ -41,9 +41,9 @@ const services = [
 
 const Services: React.FC = () => {
   return (
-    <div className="py-24 sm:py-32">
+    <div className="py-24 sm:py-32 relative">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:text-center">
+        <div className="mx-auto max-w-2xl lg:text-center opacity-0 animate-fade-in-up">
           <h2 className="text-base font-semibold leading-7 text-lime-400">NUESTROS CAMPOS DE BATALLA</h2>
           <p className="mt-2 text-4xl font-black tracking-tight text-white sm:text-5xl">
             Donde la innovación se vuelve un arma.
@@ -54,11 +54,12 @@ const Services: React.FC = () => {
             {services.map((service, index) => (
               <div 
                 key={service.name} 
-                className="flex flex-col p-8 rounded-2xl bg-slate-800/80 border border-lime-400/20 hover:border-lime-400/70 hover:shadow-[0_0_25px_rgba(163,230,53,0.3)] transition-all duration-300 ease-in-out transform hover:-translate-y-1 animate-fadeInUp opacity-0"
-                style={{ animationDelay: `${index * 0.15}s`, animationFillMode: 'forwards', animationDuration: '0.8s' }}
+                // Usamos un estilo en línea SOLO para el delay dinámico del mapeo, es aceptable aquí.
+                className="flex flex-col p-8 rounded-2xl bg-slate-900/50 backdrop-blur-sm border border-slate-800 hover:border-lime-400/50 transition-all duration-300 ease-in-out transform hover:-translate-y-2 opacity-0 animate-fade-in-up"
+                style={{ animationDelay: `${index * 150}ms` }} 
                 >
                 <dt className="flex items-center gap-x-4">
-                  <div>{service.icon}</div>
+                  <div className="p-2 rounded-lg bg-slate-800/80 text-lime-400 border border-slate-700">{service.icon}</div>
                   <span className="text-xl font-black text-white">{service.name}</span>
                 </dt>
                 <dd className="mt-4 text-base leading-7 text-slate-400">
