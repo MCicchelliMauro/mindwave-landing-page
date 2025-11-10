@@ -6,7 +6,7 @@ import ContactSection from './components/ContactSection'
 function App() {
   return (
     // Añadimos 'bg-tech-grid' aquí
-    <main className="min-h-screen bg-mindwave-navy bg-tech-grid overflow-hidden">
+    <main className="min-h-screen bg-mindwave-navy bg-tech-grid">
       <Navbar />
       <HeroSection />
       <Services />

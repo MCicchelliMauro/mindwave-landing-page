@@ -3,7 +3,7 @@ import React from 'react';
 const HeroSection: React.FC = () => {
   return (
     <section className="relative isolate px-6 lg:px-8">
-      <div className="mx-autoxf flex max-w-5xl flex-col items-center justify-center text-center" style={{ minHeight: 'calc(100vh - 88px)' }}>
+      <div className="mx-auto flex max-w-5xl flex-col items-center justify-center text-center" style={{ minHeight: 'calc(100vh - 88px)' }}>
         
         {/* Gradiente central (Hero glow) */}
         <div 
