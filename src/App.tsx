@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
+import ProjectsSection from './components/ProjectsSection'
 import Services from './components/Services'
 import ContactSection from './components/ContactSection'
 
@@ -9,6 +10,7 @@ function App() {
     <main className="min-h-screen bg-mindwave-navy bg-tech-grid">
       <Navbar />
       <HeroSection />
+      <ProjectsSection />
       <Services />
       <ContactSection />
     </main>

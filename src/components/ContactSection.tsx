@@ -31,7 +31,7 @@ const ContactSection: React.FC = () => {
           aria-hidden="true"
         >
           <div
-            className="relative left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[50rem] aspect-square rounded-full"
+            className="relative left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-200 aspect-square rounded-full"
             style={{
               background: 'radial-gradient(circle, rgba(163, 230, 53, 0.1), transparent 60%)'
             }}
@@ -39,7 +39,6 @@ const ContactSection: React.FC = () => {
         </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* CORRECCIÓN AQUÍ: animate-fade-in-up */}
         <div className="mx-auto max-w-2xl text-center opacity-0 animate-fade-in-up">
           <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
             ¿LISTO PARA ROMPER EL MOLDE?
@@ -49,7 +48,6 @@ const ContactSection: React.FC = () => {
           </p>
         </div>
 
-        {/* CORRECCIÓN AQUÍ: animate-fade-in-up y delay-200 en vez de style */}
         <div
             className="mt-16 mx-auto w-full max-w-3xl h-[400px] md:h-[500px] rounded-2xl border-2 border-dashed border-lime-400/40 bg-slate-800/20 flex items-center justify-center opacity-0 animate-fade-in-up delay-200"
         >
@@ -61,7 +59,6 @@ const ContactSection: React.FC = () => {
           </div>
         </div>
 
-        {/* CORRECCIÓN AQUÍ: animate-fade-in-up y delay-400 en vez de style */}
         <div
             className="mt-12 text-center opacity-0 animate-fade-in-up delay-400"
         >
