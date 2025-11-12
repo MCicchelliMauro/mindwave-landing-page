@@ -1,11 +1,16 @@
 import React from 'react';
 
-const HeroSection: React.FC = () => {
+// Definimos los props que recibirá
+interface HeroSectionProps {
+  onOpenModal: () => void;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ onOpenModal }) => {
   return (
     <section className="relative isolate px-6 lg:px-8">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-center text-center" style={{ minHeight: 'calc(100vh - 88px)' }}>
         
-        {/* Gradiente central (Hero glow) */}
+        {/* ... (gradiente de fondo se mantiene igual) ... */}
         <div 
           className="absolute inset-0 -z-10 transform-gpu overflow-hidden blur-3xl"
           aria-hidden="true"
@@ -19,7 +24,6 @@ const HeroSection: React.FC = () => {
         </div>
 
         <div>
-          {/* Aplicando la nueva clase de animación y opacity-0 por defecto para que no parpadee al cargar */}
           <h1 className="text-4xl font-black tracking-tighter text-white sm:text-6xl md:text-7xl lg:text-8xl opacity-0 animate-fade-in-up">
             ARQUITECTOS DE LA REVOLUCIÓN DIGITAL.
           </h1>
@@ -27,12 +31,13 @@ const HeroSection: React.FC = () => {
             Fusionamos Inteligencia Artificial con experiencia humana para crear productos que rompen el mercado.
           </p>
           <div className="mt-10 opacity-0 animate-fade-in-up delay-400">
-            <a
-              href="#contact"
+            {/* El CTA ahora es un botón que abre el modal */}
+            <button
+              onClick={onOpenModal}
               className="rounded-full bg-lime-400 px-8 py-4 text-lg font-bold text-slate-900 shadow-lg shadow-lime-400/20 transition-all duration-300 ease-in-out hover:scale-110 hover:bg-lime-300 hover:shadow-xl hover:shadow-lime-400/40"
             >
               INICIA EL CAMBIO
-            </a>
+            </button>
           </div>
         </div>
 
@@ -41,4 +46,4 @@ const HeroSection: React.FC = () => {
   );
 };
 
-export default HeroSection;
+export default HeroSection; 

@@ -1,6 +1,9 @@
 import React from 'react';
+import TiltCard from './ui/TiltCard'; // Importamos el nuevo componente
 
+// ... (MANTÉN EL ARRAY DE 'services' IGUAL QUE ANTES) ...
 const services = [
+  // ... copia aquí el mismo array de servicios que ya tenías ...
   {
     name: 'AI Native Products',
     description: 'Integración profunda de modelos de IA para crear soluciones que aprenden, se adaptan y evolucionan.',
@@ -37,14 +40,14 @@ const services = [
       </svg>
     ),
   },
-]
+];
 
 const Services: React.FC = () => {
   return (
-    <div className="py-24 sm:py-32 relative">
+    <section className="py-24 sm:py-32 relative">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center opacity-0 animate-fade-in-up">
-          <h2 className="text-base font-semibold leading-7 text-lime-400">NUESTROS CAMPOS DE BATALLA</h2>
+          <h2 className="text-base font-semibold leading-7 text-mindwave-lime">NUESTROS CAMPOS DE BATALLA</h2>
           <p className="mt-2 text-4xl font-black tracking-tight text-white sm:text-5xl">
             Donde la innovación se vuelve un arma.
           </p>
@@ -52,25 +55,27 @@ const Services: React.FC = () => {
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-2">
             {services.map((service, index) => (
+              // Envolvemos cada card con TiltCard
               <div 
-                key={service.name} 
-                // Usamos un estilo en línea SOLO para el delay dinámico del mapeo, es aceptable aquí.
-                className="flex flex-col p-8 rounded-2xl bg-slate-900/50 backdrop-blur-sm border border-slate-800 hover:border-lime-400/50 transition-all duration-300 ease-in-out transform hover:-translate-y-2 opacity-0 animate-fade-in-up"
-                style={{ animationDelay: `${index * 150}ms` }} 
-                >
-                <dt className="flex items-center gap-x-4">
-                  <div className="p-2 rounded-lg bg-slate-800/80 text-lime-400 border border-slate-700">{service.icon}</div>
-                  <span className="text-xl font-black text-white">{service.name}</span>
-                </dt>
-                <dd className="mt-4 text-base leading-7 text-slate-400">
-                  {service.description}
-                </dd>
+                key={service.name}
+                className="opacity-0 animate-fade-in-up"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
+                <TiltCard className="flex flex-col h-full p-8 rounded-3xl bg-slate-900/50 backdrop-blur-sm border border-slate-800 hover:border-mindwave-lime/50 transition-colors duration-300">
+                  <dt className="flex items-center gap-x-4">
+                    <div className="p-3 rounded-xl bg-slate-800/80 text-mindwave-lime border border-slate-700/50 shadow-lg shadow-mindwave-lime/10">{service.icon}</div>
+                    <span className="text-2xl font-black text-white">{service.name}</span>
+                  </dt>
+                  <dd className="mt-6 text-base leading-7 text-slate-300">
+                    {service.description}
+                  </dd>
+                </TiltCard>
               </div>
             ))}
           </dl>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
+// Ya no necesitamos useState, AnimatePresence, o ContactModal aquí
 
-// Icons for social links
+// ... (SocialIcons se mantiene igual) ...
 const SocialIcons = {
   email: (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -22,10 +23,18 @@ const SocialIcons = {
   )
 };
 
-const ContactSection: React.FC = () => {
+// Definimos los props que recibirá
+interface ContactSectionProps {
+  onOpenModal: () => void;
+}
+
+const ContactSection: React.FC<ContactSectionProps> = ({ onOpenModal }) => {
+  // Quitamos toda la lógica de useState
+  
   return (
-    <section id="contact" className="relative isolate py-24 sm:py-32">
-       {/* Abstract background gradient */}
+    <> {/* El Fragment <> sigue siendo útil por si acaso, aunque ya no es 100% necesario */}
+      <section id="contact" className="relative isolate py-24 sm:py-32">
+        {/* ... (gradiente de fondo se mantiene igual) ... */}
         <div
           className="absolute inset-0 -z-10 transform-gpu overflow-hidden blur-3xl"
           aria-hidden="true"
@@ -38,45 +47,46 @@ const ContactSection: React.FC = () => {
           />
         </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center opacity-0 animate-fade-in-up">
-          <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
-            ¿LISTO PARA ROMPER EL MOLDE?
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-slate-300">
-            Nuestra Product Owner y nuestro Lead Tech te esperan. 30 minutos. Sin compromiso. Mucho valor.
-          </p>
-        </div>
-
-        <div
-            className="mt-16 mx-auto w-full max-w-3xl h-[400px] md:h-[500px] rounded-2xl border-2 border-dashed border-lime-400/40 bg-slate-800/20 flex items-center justify-center opacity-0 animate-fade-in-up delay-200"
-        >
-          <div className="text-center">
-            <p className="font-mono text-lg text-lime-400 animate-pulse">
-              CALENDLY WIDGET LOADING...
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center opacity-0 animate-fade-in-up">
+            <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
+              ¿LISTO PARA ROMPER EL MOLDE?
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-slate-300">
+              Nuestro proceso de IA comienza con tu idea. Danos el brief inicial y te enviaremos nuestro cuestionario de descubrimiento detallado.
             </p>
-            <p className="text-sm text-slate-500 mt-2">(Aquí se cargaría el widget para agendar)</p>
           </div>
-        </div>
 
-        <div
-            className="mt-12 text-center opacity-0 animate-fade-in-up delay-400"
-        >
-          <p className="text-slate-400">O contáctanos por otros medios:</p>
-          <div className="mt-6 flex items-center justify-center gap-x-8">
-            <a href="mailto:hola@mindwave.tech" className="text-slate-400 hover:text-lime-400 transition-colors" aria-label="Email">
-                {SocialIcons.email}
-            </a>
-            <a href="#" className="text-slate-400 hover:text-lime-400 transition-colors" aria-label="LinkedIn">
-                {SocialIcons.linkedin}
-            </a>
-            <a href="#" className="text-slate-400 hover:text-lime-400 transition-colors" aria-label="Twitter">
-                {SocialIcons.twitter}
-            </a>
+          {/* Botón que abre el Modal */}
+          <div className="mt-10 flex justify-center opacity-0 animate-fade-in-up delay-200">
+            <button
+              onClick={onOpenModal}
+              className="rounded-full bg-lime-400 px-8 py-4 text-lg font-bold text-slate-900 shadow-lg shadow-lime-400/20 transition-all duration-300 ease-in-out hover:scale-110 hover:bg-lime-300 hover:shadow-xl hover:shadow-lime-400/40"
+            >
+              Comenzar Proyecto
+            </button>
+          </div>
+
+          {/* ... (iconos de redes sociales se mantienen igual) ... */}
+          <div className="mt-12 text-center opacity-0 animate-fade-in-up delay-400">
+            <p className="text-slate-400">O contáctanos por otros medios:</p>
+            <div className="mt-6 flex items-center justify-center gap-x-8">
+              <a href="mailto:hola@mindwave.tech" className="text-slate-400 hover:text-lime-400 transition-colors" aria-label="Email">
+                  {SocialIcons.email}
+              </a>
+              <a href="#" className="text-slate-400 hover:text-lime-400 transition-colors" aria-label="LinkedIn">
+                  {SocialIcons.linkedin}
+              </a>
+              <a href="#" className="text-slate-400 hover:text-lime-400 transition-colors" aria-label="Twitter">
+                  {SocialIcons.twitter}
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* YA NO RENDERIZAMOS EL MODAL AQUÍ */}
+    </>
   );
 };
 
