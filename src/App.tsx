@@ -1,34 +1,37 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { useState, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import DescubrimientoPage from './pages/DescubrimientoPage';
-import ContactModal from './components/ContactModal'; // Importar el modal aquí
+import InteractiveGrid from './components/ui/InteractiveGrid';
+import Footer from './components/Footer';
+
+// Code Splitting
+const HomePage = lazy(() => import('./pages/HomePage'));
+const DescubrimientoPage = lazy(() => import('./pages/DescubrimientoPage'));
+const ModalManager = lazy(() => import('./components/ModalManager'));
 
 function App() {
-  // El estado del modal AHORA VIVE AQUÍ
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
   return (
-    <main className="min-h-screen bg-mindwave-navy bg-tech-grid">
-      
-      {/* Pasamos la función 'openModal' al Navbar */}
-      <Navbar onOpenModal={openModal} />
-      
-      <Routes>
-        {/* Pasamos la función 'openModal' al HomePage */}
-        <Route path="/" element={<HomePage onOpenModal={openModal} />} />
-        
-        <Route path="/descubrimiento" element={<DescubrimientoPage />} />
-      </Routes>
+    <main className="min-h-screen">
+      <InteractiveGrid />
 
-      {/* El modal se renderiza aquí, controlado por el estado de App */}
-      <AnimatePresence>
-        {modalOpen && <ContactModal handleClose={closeModal} />}
-      </AnimatePresence>
+      <Navbar onOpenModal={openModal} />
+
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center"></div>}>
+        <Routes>
+          <Route path="/" element={<HomePage onOpenModal={openModal} />} />
+          <Route path="/descubrimiento" element={<DescubrimientoPage />} />
+        </Routes>
+      </Suspense>
+
+      <Footer />
+
+      <Suspense fallback={null}>
+        {modalOpen && <ModalManager isOpen={modalOpen} onClose={closeModal} />}
+      </Suspense>
 
     </main>
   )

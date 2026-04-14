@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import HeroSection from '../components/HeroSection';
-import ProjectsSection from '../components/ProjectsSection';
-import Services from '../components/Services';
-import ContactSection from '../components/ContactSection';
 
-// Definimos los props que recibirá
+// Lazy load below-the-fold sections
+const ProjectsSection = lazy(() => import('../components/ProjectsSection'));
+const Services = lazy(() => import('../components/Services'));
+const ContactSection = lazy(() => import('../components/ContactSection'));
+
 interface HomePageProps {
   onOpenModal: () => void;
 }
@@ -12,11 +13,15 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ onOpenModal }) => {
   return (
     <>
-      {/* Pasamos la función 'onOpenModal' a Hero y Contact */}
+      {/* Hero renderiza inmediatamente (LCP) */}
       <HeroSection onOpenModal={onOpenModal} />
-      <ProjectsSection />
-      <Services />
-      <ContactSection onOpenModal={onOpenModal} />
+
+      {/* Secciones secundarias se cargan bajo demanda */}
+      <Suspense fallback={<div className="min-h-screen w-full flex items-center justify-center text-slate-500">Cargando...</div>}>
+        <Services />
+        <ProjectsSection />
+        <ContactSection onOpenModal={onOpenModal} />
+      </Suspense>
     </>
   );
 };

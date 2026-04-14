@@ -1,0 +1,85 @@
+{
+  "name": "Mindwave — 02 Discovery Brief",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "mindwave-brief",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "b2222222-0000-0000-0000-000000000001",
+      "name": "Webhook Brief",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "mindwave-brief"
+    },
+    {
+      "parameters": {
+        "fromEmail": "={{ $vars.SMTP_FROM || 'noreply@mindwave.com' }}",
+        "toEmail": "TU_EMAIL@gmail.com",
+        "subject": "=📋 Brief Completo — {{ $json.body.clientName || 'Nuevo cliente' }}",
+        "emailFormat": "html",
+        "message": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <style>\n    body { font-family: -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; padding: 0; }\n    .container { max-width: 600px; margin: 0 auto; padding: 32px 24px; }\n    .header { border-bottom: 2px solid #a3e635; padding-bottom: 16px; margin-bottom: 24px; }\n    .header h1 { margin: 0; font-size: 24px; color: #a3e635; }\n    .header p { margin: 4px 0 0; font-size: 13px; color: #64748b; }\n    .badge { display: inline-block; background: #1a2e0a; color: #a3e635; border: 1px solid #a3e63533; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; margin-bottom: 20px; }\n    .field { background: #1e293b; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; }\n    .field-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }\n    .field-value { font-size: 15px; color: #f1f5f9; line-height: 1.6; white-space: pre-wrap; }\n    .brief-box { background: #0f1e0a; border: 1px solid #a3e63533; border-radius: 12px; padding: 20px; margin: 16px 0; }\n    .brief-box pre { margin: 0; font-family: inherit; font-size: 14px; color: #cbd5e1; line-height: 1.7; white-space: pre-wrap; }\n    .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #1e293b; font-size: 12px; color: #475569; text-align: center; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <h1>Mindwave</h1>\n      <p>Brief de Descubrimiento — generado por IA</p>\n    </div>\n    <span class=\"badge\">PASO 2 — Brief Completo</span>\n    <div class=\"field\">\n      <div class=\"field-label\">Cliente</div>\n      <div class=\"field-value\">{{ $json.body.clientName || 'No especificado' }}</div>\n    </div>\n    <div class=\"field\">\n      <div class=\"field-label\">Email</div>\n      <div class=\"field-value\"><a href=\"mailto:{{ $json.body.clientEmail }}\" style=\"color: #a3e635;\">{{ $json.body.clientEmail || 'No especificado' }}</a></div>\n    </div>\n    <div class=\"brief-box\">\n      <div class=\"field-label\" style=\"margin-bottom: 12px;\">Brief Generado por IA</div>\n      <pre>{{ $json.body.brief }}</pre>\n    </div>\n    <div class=\"footer\">\n      Recibido el {{ $now.format('DD/MM/YYYY') }} a las {{ $now.format('HH:mm') }} hs\n    </div>\n  </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "id": "b2222222-0000-0000-0000-000000000002",
+      "name": "Enviar Email Brief",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [500, 300],
+      "credentials": {
+        "smtp": {
+          "id": "REEMPLAZAR_CON_ID_CREDENCIAL_SMTP",
+          "name": "SMTP Mindwave"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": true, \"message\": \"Brief recibido correctamente. Nos pondremos en contacto pronto.\" }"
+      },
+      "id": "b2222222-0000-0000-0000-000000000003",
+      "name": "Responder OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [760, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Brief": {
+      "main": [
+        [
+          {
+            "node": "Enviar Email Brief",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Email Brief": {
+      "main": [
+        [
+          {
+            "node": "Responder OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "id": "mindwave-workflow-brief-v1",
+  "tags": [
+    { "name": "mindwave" },
+    { "name": "briefs" }
+  ]
+}
