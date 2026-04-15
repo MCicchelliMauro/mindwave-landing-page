@@ -110,7 +110,10 @@ const DescubrimientoPage: React.FC = () => {
         body: JSON.stringify({ messages: apiMessages }),
       });
 
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(`HTTP ${response.status}: ${errData?.error ?? 'Error desconocido'}`);
+      }
 
       const data = await response.json();
       const aiText: string = data.response || 'Lo siento, no pude procesar la respuesta.';

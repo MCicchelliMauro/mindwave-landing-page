@@ -1,7 +1,7 @@
 // Vercel Serverless Function — Proxy para Gemini API
 // La GEMINI_API_KEY nunca sale del servidor; el cliente solo llama a /api/chat
 
-const GEMINI_MODEL = 'gemini-2.0-flash';
+const GEMINI_MODEL = 'gemini-1.5-flash';
 
 const SYSTEM_PROMPT = `Eres un consultor estratégico de Mindwave, una agencia especializada en desarrollo web con IA y automatizaciones.
 Tu misión es hacer una entrevista de descubrimiento conversacional para entender el proyecto digital del usuario y generar un brief estructurado al final.
@@ -77,9 +77,10 @@ export default async function handler(req: any, res: any) {
     });
 
     if (!geminiResponse.ok) {
-      const errorData = await geminiResponse.json();
-      console.error('Gemini API error:', errorData);
-      return res.status(502).json({ error: 'Error al contactar Gemini' });
+      const errorData = await geminiResponse.json().catch(() => ({}));
+      console.error('Gemini API error:', JSON.stringify(errorData));
+      const geminiMsg = errorData?.error?.message ?? geminiResponse.statusText;
+      return res.status(502).json({ error: `Gemini error ${geminiResponse.status}: ${geminiMsg}` });
     }
 
     const data = await geminiResponse.json();
