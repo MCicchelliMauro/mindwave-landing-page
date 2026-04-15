@@ -1,7 +1,7 @@
 // Vercel Serverless Function — Proxy para Gemini API
 // La GEMINI_API_KEY nunca sale del servidor; el cliente solo llama a /api/chat
 
-const GEMINI_MODEL = 'gemini-1.5-flash';
+const GEMINI_MODEL = 'gemini-2.5-flash';
 
 const SYSTEM_PROMPT = `Eres un consultor estratégico de Mindwave, una agencia especializada en desarrollo web con IA y automatizaciones.
 Tu misión es hacer una entrevista de descubrimiento conversacional para entender el proyecto digital del usuario y generar un brief estructurado al final.
